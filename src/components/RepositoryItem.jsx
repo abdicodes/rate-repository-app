@@ -1,26 +1,15 @@
-import { FlatList, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 
-const Item = ({ props }) => (
+const RepositoryItem = ({ item }) => (
   <View>
-    <Text>Full Name {props.fullName}</Text>
-    <Text>description{props.description}</Text>
-    <Text>language{props.language}</Text>
-    <Text>Stars {props.stargazersCount}</Text>
-    <Text>forks{props.forksCount}</Text>
-    <Text>reviews{props.reviewCount}</Text>
-    <Text>rating{props.ratingAverage}</Text>
+    <Text>Full Name: {item.fullName}</Text>
+    <Text>description: {item.description}</Text>
+    <Text>language: {item.language}</Text>
+    <Text>Stars: {item.stargazersCount}</Text>
+    <Text>forks: {item.forksCount}</Text>
+    <Text>reviews: {item.reviewCount}</Text>
+    <Text>rating: {item.ratingAverage}</Text>
   </View>
 );
-
-const RepositoryItem = (props) => {
-  const renderItem = ({ item }) => <Item props={item} />;
-  return (
-    <FlatList
-      data={props}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-    />
-  );
-};
 
 export default RepositoryItem;

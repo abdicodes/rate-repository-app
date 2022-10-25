@@ -9,8 +9,7 @@ const styles = StyleSheet.create({
     // ...
   },
   text: {
-    // color: `#fffafa`,
-    color: theme.colors.textSecondary,
+    color: theme.colors.buttonText,
     fontSize: theme.fontSizes.subheading,
     fontFamily: theme.fonts.main,
     fontWeight: theme.fontWeights.bold,

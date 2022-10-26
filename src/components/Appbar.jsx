@@ -4,8 +4,11 @@ import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: Constants.statusBarHeight,
+    paddingTop: Constants.statusBarHeight * 0.5,
     backgroundColor: theme.colors.appBarBackgroumd,
+    paddingBottom: Constants.statusBarHeight * 0.5,
+    paddingLeft: 10,
+
     // ...
   },
   text: {
@@ -18,7 +21,7 @@ const styles = StyleSheet.create({
 
 const AppBarTab = ({ children }) => {
   return (
-    <Pressable>
+    <Pressable style={{ flexDirection: 'row' }}>
       <Text style={styles.text}>{children}</Text>
     </Pressable>
   );

@@ -7,6 +7,7 @@ const theme = {
     buttonPrimary: `#1e90ff`,
     buttonSecondary: `#ff00ff`,
     buttonText: `#fffaf0`,
+    separator: 'gainsboro',
   },
   fontSizes: {
     body: 14,

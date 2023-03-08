@@ -41,7 +41,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.buttonPrimary,
   },
   buttonText: {
-    fontWeight: 'bold',
+    fontWeight: theme.fontWeights.bold,
     letterSpacing: 0.25,
     color: theme.colors.buttonText,
     paddingHorizontal: 2,

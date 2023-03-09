@@ -1,4 +1,5 @@
 import { View, StyleSheet, Pressable, Text } from 'react-native';
+import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 
@@ -7,7 +8,10 @@ const styles = StyleSheet.create({
     paddingTop: Constants.statusBarHeight * 0.5,
     backgroundColor: theme.colors.appBarBackground,
     paddingBottom: Constants.statusBarHeight * 0.5,
-    paddingLeft: 10,
+    paddingHorizontal: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
 
     // ...
   },
@@ -17,12 +21,17 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.main,
     fontWeight: theme.fontWeights.bold,
   },
+  tabs: {
+    marginHorizontal: 10,
+  },
 });
 
-const AppBarTab = ({ children }) => {
+const AppBarTab = ({ children, uri }) => {
   return (
-    <Pressable style={{ flexDirection: 'row' }}>
-      <Text style={styles.text}>{children}</Text>
+    <Pressable style={styles.tabs}>
+      <Link to={uri}>
+        <Text style={styles.text}>{children}</Text>
+      </Link>
     </Pressable>
   );
 };
@@ -30,7 +39,12 @@ const AppBarTab = ({ children }) => {
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarTab>Repositories</AppBarTab>
+      {/* <Link to="/"> */}
+      <AppBarTab uri="/">Repositories</AppBarTab>
+      {/* </Link> */}
+      {/* <Link to="/sign-in"> */}
+      <AppBarTab uri="/sign-in">Sign in</AppBarTab>
+      {/* </Link> */}
     </View>
   );
 };

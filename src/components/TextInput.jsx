@@ -3,15 +3,37 @@ https://github.com/fullstack-hy2020/fullstack-hy2020.github.io/blob/source/src/c
 and have been further expanded on. 
 */
 
-import { TextInput as NativeTextInput, StyleSheet } from 'react-native';
-
-const styles = StyleSheet.create({});
+import { TextInput as NativeTextInput, StyleSheet, View } from 'react-native';
+import theme from '../theme';
+const styles = StyleSheet.create({
+  basic: {
+    // marginHorizontal: 5,
+    // paddingHorizontal: 5,
+    minWidth: 200,
+    maxWidth: 200,
+  },
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 6,
+    margin: 10,
+    borderRadius: 4,
+    elevation: 3,
+    borderColor: theme.colors.textSecondary,
+    borderWidth: 1,
+  },
+});
 
 //custom TextInput component to redunce redundency.
 const TextInput = ({ style, error, ...props }) => {
-  const textInputStyle = [style];
+  const textInputStyle = [styles.basic, style];
 
-  return <NativeTextInput style={textInputStyle} {...props} />;
+  return (
+    <View>
+      <NativeTextInput style={textInputStyle} {...props} />
+    </View>
+  );
 };
 
 export default TextInput;

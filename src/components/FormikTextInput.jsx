@@ -1,7 +1,6 @@
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { useField } from 'formik';
 import theme from '../theme';
-import Constants from 'expo-constants';
 
 import TextInput from './TextInput';
 import Text from './Text';

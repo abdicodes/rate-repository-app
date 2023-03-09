@@ -9,6 +9,12 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.main,
     fontWeight: theme.fontWeights.normal,
   },
+  errorText: {
+    color: theme.colors.textPrimary,
+    fontSize: theme.fontSizes.body,
+    fontFamily: theme.fonts.main,
+    fontWeight: theme.fontWeights.normal,
+  },
   colorTextSecondary: {
     color: theme.colors.textSecondary,
   },

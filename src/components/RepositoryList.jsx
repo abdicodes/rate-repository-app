@@ -1,8 +1,11 @@
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 import { FlatList, View, StyleSheet } from 'react-native';
 import theme from '../theme';
 import RepositoryItem from './RepositoryItem';
 import useRepositories from '../hooks/useRepositories';
+import { useQuery } from '@apollo/client';
+import { GET_REPOSITORIES } from '../graphql/queries';
+import Constants from 'expo-constants';
 
 const styles = StyleSheet.create({
   separator: {
@@ -61,7 +64,7 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const RepositoryList = () => {
-  const repositories = useRepositories();
+  const { repositories } = useRepositories();
   // const [repositories, setRepositories] = useState();
   const renderItem = ({ item }) => <RepositoryItem item={item} />;
 
@@ -77,7 +80,13 @@ const RepositoryList = () => {
   next 3 lines of code was borrowed from:
   https://github.com/fullstack-hy2020/fullstack-hy2020.github.io/blob/source/src/content/10/en/part10c.md */
 
-  const repositoryNodes = repositories
+  // this will run ApolloGraphQL query to fetch data from server
+  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+    //to avoid caching issues.
+    fetchPolicy: 'cache-and-network',
+  });
+
+  const repositoryNodes = data?.repositories
     ? repositories.edges.map((edge) => edge.node)
     : [];
 

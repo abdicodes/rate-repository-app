@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
   },
 });
 const SignInForm = ({ onSubmit, isValid }) => {
-  console.log('isvalid: ', isValid);
   return (
     <View style={styles.container}>
       <FormikTextInput name="username" placeholder="Enter your username" />

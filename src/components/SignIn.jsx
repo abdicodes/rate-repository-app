@@ -2,12 +2,12 @@ import SignInForm from './SignInForm';
 import { Formik } from 'formik';
 import { View, StyleSheet } from 'react-native';
 import { object, string } from 'yup';
+import useSignIn from '../hooks/useSignIn';
 
 const defaultValues = {
   username: '',
   password: '',
 };
-
 const loginSchema = object().shape({
   username: string()
     .min(5, 'username must contain at least 5 characters')
@@ -16,9 +16,9 @@ const loginSchema = object().shape({
   // code bowrroed from https://stackblitz.com/edit/react-akapme?file=src%2FApp.js
   password: string()
     .min(8, 'Password must be 8 characters long')
-    .matches(/[0-9]/, 'Password requires a number')
+    // .matches(/[0-9]/, 'Password requires a number')
     .matches(/[a-z]/, 'Password requires a lowercase letter')
-    .matches(/[A-Z]/, 'Password requires an uppercase letter')
+    // .matches(/[A-Z]/, 'Password requires an uppercase letter')
     .required('Username is required!'),
 });
 
@@ -30,7 +30,15 @@ const styles = StyleSheet.create({
 });
 
 const SignIn = () => {
-  const onSubmit = (values) => console.log(values);
+  const [signIn] = useSignIn();
+
+  const onSubmit = async (values) => {
+    try {
+      const { data } = await signIn(values);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <View style={styles.container}>

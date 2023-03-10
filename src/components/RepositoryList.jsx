@@ -86,18 +86,18 @@ const RepositoryList = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const repositoryNodes = data?.repositories
-    ? repositories.edges.map((edge) => edge.node)
-    : [];
-
-  return (
-    <FlatList
-      data={repositoryNodes}
-      renderItem={renderItem}
-      keyExtractor={(item) => item.id}
-      ItemSeparatorComponent={ItemSeparator}
-    />
-  );
+  const repositoryNodes =
+    data && !loading ? repositories.edges.map((edge) => edge.node) : [];
+  if (data.repositories && !loading) {
+    return (
+      <FlatList
+        data={repositoryNodes}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id}
+        ItemSeparatorComponent={ItemSeparator}
+      />
+    );
+  }
 };
 
 export default RepositoryList;

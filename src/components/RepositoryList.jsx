@@ -88,16 +88,15 @@ const RepositoryList = () => {
 
   const repositoryNodes =
     data && !loading ? repositories.edges.map((edge) => edge.node) : [];
-  if (data.repositories && !loading) {
-    return (
-      <FlatList
-        data={repositoryNodes}
-        renderItem={renderItem}
-        keyExtractor={(item) => item.id}
-        ItemSeparatorComponent={ItemSeparator}
-      />
-    );
-  }
+
+  return (
+    <FlatList
+      data={repositoryNodes}
+      renderItem={renderItem}
+      keyExtractor={(item) => item.id}
+      ItemSeparatorComponent={ItemSeparator}
+    />
+  );
 };
 
 export default RepositoryList;

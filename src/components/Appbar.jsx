@@ -3,6 +3,8 @@ import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
 import SignOut from './SignOut';
+import { useQuery } from '@apollo/client';
+import { IS_SIGNED_IN } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -39,12 +41,17 @@ const AppBarTab = ({ children, route }) => {
 };
 
 const AppBar = () => {
+  const { data } = useQuery(IS_SIGNED_IN, {
+    //to avoid caching issues.
+    fetchPolicy: 'cache-and-network',
+  });
+  console.log(data.me);
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
-        <AppBarTab route="/">Repositories</AppBarTab>
-        <AppBarTab route="/sign-in">Sign in</AppBarTab>
-        <SignOut />
+        {data.me && <AppBarTab route="/">Repositories</AppBarTab>}
+        {!data.me && <AppBarTab route="/sign-in">Sign in</AppBarTab>}
+        {data.me && <SignOut />}
       </ScrollView>
     </View>
   );

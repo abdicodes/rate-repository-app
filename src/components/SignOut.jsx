@@ -1,16 +1,21 @@
 // I borrowed basic Alert dialouge from https://reactnative.dev/docs/alert
 
 import React from 'react';
-import { View, StyleSheet, Text, Alert, Pressable } from 'react-native';
+import { StyleSheet, Text, Alert, Pressable } from 'react-native';
 import { useNavigate } from 'react-router-native';
 import AuthStorage from '../utils/authStorage';
 import theme from '../theme';
+import { useApolloClient } from '@apollo/client';
 
 const authStorage = new AuthStorage();
 const SignOut = () => {
   const navigate = useNavigate();
+  const apolloClient = useApolloClient();
+
   const navigateCallBack = async () => {
     await authStorage.clearToken();
+    apolloClient.resetStore();
+
     navigate('/sign-in');
   };
   const createTwoButtonAlert = () =>
@@ -35,11 +40,6 @@ const SignOut = () => {
 };
 
 const styles = StyleSheet.create({
-  //   container: {
-  //     flex: 1,
-  //     justifyContent: 'space-around',
-  //     alignItems: 'center',
-  //   },
   text: {
     color: theme.colors.buttonText,
     fontSize: theme.fontSizes.subheading,

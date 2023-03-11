@@ -4,6 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import { object, string } from 'yup';
 import useSignIn from '../hooks/useSignIn';
 import { useAuthStorage } from '../hooks/useAuthStorage';
+// import { useN } from 'react-router-native';
+import { useNavigate } from 'react-router-native';
 
 const defaultValues = {
   username: '',
@@ -33,12 +35,15 @@ const styles = StyleSheet.create({
 const SignIn = () => {
   const [signIn] = useSignIn();
   const { dispatch } = useAuthStorage();
+  const history = useNavigate();
+  // ...
 
   const onSubmit = async (values) => {
     try {
       const { data } = await signIn(values);
       // console.log(data.authenticate.accessToken);
-      dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
+      await dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
+      history('/');
     } catch (e) {
       console.log(e);
     }

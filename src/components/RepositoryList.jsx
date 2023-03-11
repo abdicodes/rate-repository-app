@@ -62,32 +62,14 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
-const RepositoryList = () => {
-  const { repositories } = useRepositories();
-  // const [repositories, setRepositories] = useState();
+export const RepositoryListContainer = ({ repositories }) => {
   const renderItem = ({ item }) => <RepositoryItem item={item} />;
 
-  // useEffect(() => {
-  //   fetch('http://192.168.8.110:5001/api/repositories')
-  //     .then((res) => res.json())
-  //     .then((data) => setRepositories(data));
-  // }, []);
-
-  /* 
-  Get the nodes from the edges array by mapping edges array to get the node object
-  and put in array for displaying on our app.
-  next 3 lines of code was borrowed from:
-  https://github.com/fullstack-hy2020/fullstack-hy2020.github.io/blob/source/src/content/10/en/part10c.md */
-
   // this will run ApolloGraphQL query to fetch data from server
-  const { data, loading } = useQuery(GET_REPOSITORIES, {
-    //to avoid caching issues.
-    fetchPolicy: 'cache-and-network',
-  });
 
-  const repositoryNodes =
-    data && !loading ? repositories.edges.map((edge) => edge.node) : [];
+  const repositoryNodes = repositories.edges.map((edge) => edge.node);
 
+  console.log(repositoryNodes);
   return (
     <FlatList
       data={repositoryNodes}
@@ -96,6 +78,15 @@ const RepositoryList = () => {
       ItemSeparatorComponent={ItemSeparator}
     />
   );
+};
+const RepositoryList = () => {
+  const { data, loading } = useQuery(GET_REPOSITORIES, {
+    //to avoid caching issues.
+    fetchPolicy: 'cache-and-network',
+  });
+  const { repositories } = data;
+
+  return !loading && <RepositoryListContainer repositories={repositories} />;
 };
 
 export default RepositoryList;

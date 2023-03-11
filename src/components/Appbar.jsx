@@ -2,6 +2,7 @@ import { View, StyleSheet, Pressable, Text, ScrollView } from 'react-native';
 import { Link } from 'react-router-native';
 import Constants from 'expo-constants';
 import theme from '../theme';
+import SignOut from './SignOut';
 
 const styles = StyleSheet.create({
   container: {
@@ -43,6 +44,7 @@ const AppBar = () => {
       <ScrollView horizontal={true}>
         <AppBarTab route="/">Repositories</AppBarTab>
         <AppBarTab route="/sign-in">Sign in</AppBarTab>
+        <SignOut />
       </ScrollView>
     </View>
   );

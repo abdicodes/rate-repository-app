@@ -4,8 +4,8 @@ import { View, StyleSheet } from 'react-native';
 import { object, string } from 'yup';
 import useSignIn from '../hooks/useSignIn';
 import { useAuthStorage } from '../hooks/useAuthStorage';
-// import { useN } from 'react-router-native';
 import { useNavigate } from 'react-router-native';
+import { useApolloClient } from '@apollo/client';
 
 const defaultValues = {
   username: '',
@@ -36,6 +36,7 @@ const SignIn = () => {
   const [signIn] = useSignIn();
   const { dispatch } = useAuthStorage();
   const history = useNavigate();
+  const appoloClient = useApolloClient();
   // ...
 
   const onSubmit = async (values) => {
@@ -43,6 +44,8 @@ const SignIn = () => {
       const { data } = await signIn(values);
       // console.log(data.authenticate.accessToken);
       await dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
+      appoloClient.resetStore();
+
       history('/');
     } catch (e) {
       console.log(e);

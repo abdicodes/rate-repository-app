@@ -80,7 +80,7 @@ const RepositoryList = () => {
   https://github.com/fullstack-hy2020/fullstack-hy2020.github.io/blob/source/src/content/10/en/part10c.md */
 
   // this will run ApolloGraphQL query to fetch data from server
-  const { data, error, loading } = useQuery(GET_REPOSITORIES, {
+  const { data, loading } = useQuery(GET_REPOSITORIES, {
     //to avoid caching issues.
     fetchPolicy: 'cache-and-network',
   });

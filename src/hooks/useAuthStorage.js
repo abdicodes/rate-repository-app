@@ -1,10 +1,18 @@
-import { createContext } from 'react';
-import { useContext } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
+import authReducer from '../utils/authReducer';
 
-const AuthStorageContext = createContext();
+const AuthContext = createContext();
 
-export const useAuthStorage = () => {
-  return useContext(AuthStorageContext);
+const initialState = { token: null };
+
+export const AuthProvider = ({ children }) => {
+  const [state, dispatch] = useReducer(authReducer, initialState);
+
+  return (
+    <AuthContext.Provider value={{ state, dispatch }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
-export default AuthStorageContext;
+export const useAuthStorage = () => useContext(AuthContext);

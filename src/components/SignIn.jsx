@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import { View, StyleSheet } from 'react-native';
 import { object, string } from 'yup';
 import useSignIn from '../hooks/useSignIn';
+import { useAuthStorage } from '../hooks/useAuthStorage';
 
 const defaultValues = {
   username: '',
@@ -31,10 +32,13 @@ const styles = StyleSheet.create({
 
 const SignIn = () => {
   const [signIn] = useSignIn();
+  const { dispatch } = useAuthStorage();
 
   const onSubmit = async (values) => {
     try {
       const { data } = await signIn(values);
+      // console.log(data.authenticate.accessToken);
+      dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
     } catch (e) {
       console.log(e);
     }
@@ -54,9 +58,5 @@ const SignIn = () => {
     </View>
   );
 };
-
-// const SignIn = () => {
-//   return <Text>The sign-in view</Text>;
-// };
 
 export default SignIn;

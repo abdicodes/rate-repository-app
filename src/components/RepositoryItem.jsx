@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import theme from '../theme';
-
+import kFormatter from '../utils/kFormatter';
 const styles = StyleSheet.create({
   countsContainer: {
     flexDirection: 'row',
@@ -79,13 +79,8 @@ const InfoCombo = ({ fullName, description, language }) => {
   );
 };
 
-function kFormatter(num) {
-  return Math.abs(num) > 999
-    ? Math.sign(num) * (Math.abs(num) / 1000).toFixed(1) + 'k'
-    : Math.sign(num) * Math.abs(num);
-}
 const RepositoryItem = ({ item }) => (
-  <View>
+  <View testID="repositoryItem">
     <View
       style={{
         flexDirection: 'row',
@@ -106,14 +101,6 @@ const RepositoryItem = ({ item }) => (
       <CountCombo count={item.reviewCount} title="Reviews" />
       <CountCombo count={item.ratingAverage} title="Rating" />
     </View>
-
-    {/* <Text>Full Name: {item.fullName}</Text>
-    <Text>description: {item.description}</Text>
-    <Text>language: {item.language}</Text>
-    <Text>Stars: {kFormatter(item.stargazersCount)}</Text>
-    <Text>forks: {kFormatter(item.forksCount)}</Text>
-    <Text>reviews: {item.reviewCount}</Text>
-    <Text>rating: {item.ratingAverage}</Text> */}
   </View>
 );
 

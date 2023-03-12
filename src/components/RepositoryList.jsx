@@ -7,6 +7,7 @@ const RepositoryList = () => {
     //to avoid caching issues.
     fetchPolicy: 'cache-and-network',
   });
+  if (loading) return null;
   const { repositories } = data;
 
   return !loading && <RepositoryListContainer repositories={repositories} />;

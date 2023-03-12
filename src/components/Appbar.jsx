@@ -41,11 +41,12 @@ const AppBarTab = ({ children, route }) => {
 };
 
 const AppBar = () => {
-  const { data } = useQuery(IS_SIGNED_IN, {
+  const { data, loading } = useQuery(IS_SIGNED_IN, {
     //to avoid caching issues.
     fetchPolicy: 'cache-and-network',
   });
-  console.log(data.me);
+  if (loading) return null;
+
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>

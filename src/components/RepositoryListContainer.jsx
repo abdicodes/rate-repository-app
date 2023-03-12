@@ -65,7 +65,6 @@ export const RepositoryListContainer = ({ repositories }) => {
 
   const repositoryNodes = repositories.edges.map((edge) => edge.node);
 
-  console.log(repositoryNodes);
   return (
     <FlatList
       data={repositoryNodes}

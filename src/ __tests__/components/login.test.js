@@ -1,16 +1,22 @@
-import { render, fireEvent } from '@testing-library/react-native';
+import { render, fireEvent, screen } from '@testing-library/react-native';
 import React from 'react';
-import SignIn from '../../components/SignIn';
+import SignInContainer from '../../components/SignInContainer';
 
 describe('SignIn', () => {
   it('calls onSubmit function with correct arguments when a valid form is submitted', async () => {
     const onSubmit = jest.fn();
 
-    const { getByTestId } = render(<SignIn onSubmit={onSubmit} />);
+    render(<SignInContainer onSubmit={onSubmit} />);
 
-    fireEvent.changeText(getByTestId('usernameField'), 'testuser');
-    fireEvent.changeText(getByTestId('passwordField'), 'validpassword');
-    fireEvent.press(getByTestId('submitButton'));
+    fireEvent.changeText(
+      screen.getByPlaceholderText('Enter your username'),
+      'testuser'
+    );
+    fireEvent.changeText(
+      screen.getByPlaceholderText('Enter your password'),
+      'validpassword'
+    );
+    fireEvent.press(screen.getByText('Sign in'));
 
     await new Promise((resolve) => setTimeout(resolve, 500));
 

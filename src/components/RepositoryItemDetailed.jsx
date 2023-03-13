@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  Linking,
+} from 'react-native';
 import theme from '../theme';
 import kFormatter from '../utils/kFormatter';
 import { useParams } from 'react-router-native';
@@ -52,6 +59,25 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
     alignSelf: 'center',
   },
+  uriText: {
+    fontWeight: theme.fontWeights.bold,
+    fontFamily: theme.fonts.main,
+    fontSize: theme.fontSizes.heading,
+    letterSpacing: 0.25,
+    color: theme.colors.buttonText,
+    paddingHorizontal: 2,
+    alignSelf: 'center',
+  },
+  uriButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 2,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: theme.colors.buttonPrimary,
+    margin: 15,
+  },
   avatar: {
     maxWidth: 45,
     maxHeight: 45,
@@ -92,7 +118,10 @@ const RepositoryItemDetailed = () => {
   if (loading) return null;
   const item = data.repository;
   return (
-    <View testID="repositoryItem">
+    <View
+      testID="repositoryItem"
+      style={{ backgroundColor: theme.colors.singleRepository }}
+    >
       <View
         style={{
           flexDirection: 'row',
@@ -112,6 +141,14 @@ const RepositoryItemDetailed = () => {
         <CountCombo count={item.forksCount} title="Forks" />
         <CountCombo count={item.reviewCount} title="Reviews" />
         <CountCombo count={item.ratingAverage} title="Rating" />
+      </View>
+      <View>
+        <Pressable
+          style={styles.uriButton}
+          onPress={() => Linking.openURL(`${item.url}`)}
+        >
+          <Text style={styles.uriText}> Open in GitHub</Text>
+        </Pressable>
       </View>
     </View>
   );

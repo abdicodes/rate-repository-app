@@ -14,10 +14,12 @@ const theme = {
     buttonText: `#fffaf0`,
     separator: 'gainsboro',
     error: '#ff4c4c',
+    singleRepository: '#f4f4f6',
   },
   fontSizes: {
     body: 14,
     subheading: 16,
+    heading: 20,
   },
   fonts: {
     main: Platform.select({

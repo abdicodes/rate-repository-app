@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
   },
 });
 
+/* The FormikTextInput component is defined as a function component 
+that accepts a name prop and any additional props supplied to it,
+ which includes all the props of the TextInput component. */
+
 const FormikTextInput = ({ name, ...props }) => {
   const [field, meta, helpers] = useField(name);
   const showError = meta.touched && meta.error;

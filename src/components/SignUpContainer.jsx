@@ -1,23 +1,28 @@
-import SignInForm from './SignInForm';
+import SignUpForm from './SingUpForm';
 import { Formik } from 'formik';
 import { View, StyleSheet } from 'react-native';
-import { object, string } from 'yup';
+import { object, string, ref } from 'yup';
 
-const SignInContainer = ({ onSubmit }) => {
+const SignUpContainer = ({ onSubmit }) => {
   const defaultValues = {
     username: '',
     password: '',
+    confirm: '',
   };
+  // code bowrroed from https://stackblitz.com/edit/react-akapme?file=src%2FApp.js
   const loginSchema = object().shape({
     username: string()
       .min(5, 'username must contain at least 5 characters')
       .required('Username is required!'),
 
-    // code bowrroed from https://stackblitz.com/edit/react-akapme?file=src%2FApp.js
     password: string()
-      .min(5, 'Password must be 5 characters long')
-      .matches(/[a-z]/, 'Password requires a lowercase letter')
+      .min(5, 'Password must contain at least 5 characters')
+      .matches(/[A-Z]/, 'Password requires an uppercase letter')
       .required('Password is required!'),
+
+    confirm: string()
+      .oneOf([ref('password'), null], 'Must match "password" field value')
+      .required('Password confirm is required!'),
   });
 
   const styles = StyleSheet.create({
@@ -35,11 +40,11 @@ const SignInContainer = ({ onSubmit }) => {
         validationSchema={loginSchema}
       >
         {({ handleSubmit, isValid, dirty }) => (
-          <SignInForm isValid={isValid && dirty} onSubmit={handleSubmit} />
+          <SignUpForm isValid={isValid && dirty} onSubmit={handleSubmit} />
         )}
       </Formik>
     </View>
   );
 };
 
-export default SignInContainer;
+export default SignUpContainer;

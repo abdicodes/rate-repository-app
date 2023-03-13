@@ -18,7 +18,7 @@ const SignIn = () => {
       await dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
       appoloClient.resetStore();
 
-      history('/');
+      history('/repositories');
     } catch (e) {
       console.log(e);
     }

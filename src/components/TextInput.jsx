@@ -26,8 +26,8 @@ const styles = StyleSheet.create({
   },
 });
 
-//custom TextInput component to redunce redundency.
-const TextInput = ({ style, error, ...props }) => {
+//custom TextInput component to reduce redundency.
+const TextInput = ({ style, ...props }) => {
   const textInputStyle = [styles.basic, style];
 
   return (

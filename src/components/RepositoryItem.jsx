@@ -1,4 +1,11 @@
-import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Pressable,
+  Image,
+  Linking,
+} from 'react-native';
 import theme from '../theme';
 import kFormatter from '../utils/kFormatter';
 import { useNavigate } from 'react-router-native';
@@ -57,6 +64,25 @@ const styles = StyleSheet.create({
     padding: 1,
     flex: '0.2',
   },
+  uriText: {
+    fontWeight: theme.fontWeights.bold,
+    fontFamily: theme.fonts.main,
+    fontSize: theme.fontSizes.heading,
+    letterSpacing: 0.25,
+    color: theme.colors.buttonText,
+    paddingHorizontal: 2,
+    alignSelf: 'center',
+  },
+  uriButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 2,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: theme.colors.buttonPrimary,
+    margin: 15,
+  },
 });
 
 const CountCombo = ({ count, title }) => {
@@ -80,7 +106,7 @@ const InfoCombo = ({ fullName, description, language }) => {
   );
 };
 
-const RepositoryItem = ({ item }) => {
+const RepositoryItem = ({ item, showLink }) => {
   const navigate = useNavigate();
   return (
     <Pressable onPress={() => navigate(`/${item.id}`)}>
@@ -106,6 +132,16 @@ const RepositoryItem = ({ item }) => {
           <CountCombo count={item.reviewCount} title="Reviews" />
           <CountCombo count={item.ratingAverage} title="Rating" />
         </View>
+        {showLink && (
+          <View>
+            <Pressable
+              style={styles.uriButton}
+              onPress={() => Linking.openURL(`${item.url}`)}
+            >
+              <Text style={styles.uriText}> Open in GitHub</Text>
+            </Pressable>
+          </View>
+        )}
       </View>
     </Pressable>
   );

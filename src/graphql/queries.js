@@ -11,6 +11,7 @@ export const GET_REPOSITORIES = gql`
           language
           forksCount
           stargazersCount
+          fullName
           ratingAverage
           reviewCount
           ownerAvatarUrl
@@ -33,7 +34,7 @@ export const SINGLE_REPOSITORY = gql`
   query SingleRepository($repositoryId: ID!) {
     repository(id: $repositoryId) {
       id
-      ownerName
+      fullName
       description
       language
       forksCount
@@ -41,8 +42,21 @@ export const SINGLE_REPOSITORY = gql`
       ratingAverage
       reviewCount
       ownerAvatarUrl
-      name
       url
+      reviews {
+        edges {
+          node {
+            createdAt
+            rating
+            id
+            text
+            user {
+              id
+              username
+            }
+          }
+        }
+      }
     }
   }
 `;

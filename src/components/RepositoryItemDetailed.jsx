@@ -1,6 +1,9 @@
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import theme from '../theme';
 import kFormatter from '../utils/kFormatter';
+import { useParams } from 'react-router-native';
+import { useQuery } from '@apollo/client';
+import { SINGLE_REPOSITORY } from '../graphql/queries';
 const styles = StyleSheet.create({
   countsContainer: {
     flexDirection: 'row',
@@ -79,29 +82,39 @@ const InfoCombo = ({ fullName, description, language }) => {
   );
 };
 
-const RepositoryItemDetailed = ({ item }) => (
-  <View testID="repositoryItem">
-    <View
-      style={{
-        flexDirection: 'row',
-        padding: 7,
-        margin: 7,
-      }}
-    >
-      <Image source={{ url: item.ownerAvatarUrl }} style={styles.avatar} />
-      <InfoCombo
-        fullName={item.fullName}
-        description={item.description}
-        language={item.language}
-      />
+const RepositoryItemDetailed = () => {
+  const { id } = useParams();
+
+  const { data, loading } = useQuery(SINGLE_REPOSITORY, {
+    variables: { repositoryId: id },
+  });
+
+  if (loading) return null;
+  const item = data.repository;
+  return (
+    <View testID="repositoryItem">
+      <View
+        style={{
+          flexDirection: 'row',
+          padding: 7,
+          margin: 7,
+        }}
+      >
+        <Image source={{ url: item.ownerAvatarUrl }} style={styles.avatar} />
+        <InfoCombo
+          fullName={item.fullName}
+          description={item.description}
+          language={item.language}
+        />
+      </View>
+      <View style={styles.countsContainer}>
+        <CountCombo count={item.stargazersCount} title="Stars" />
+        <CountCombo count={item.forksCount} title="Forks" />
+        <CountCombo count={item.reviewCount} title="Reviews" />
+        <CountCombo count={item.ratingAverage} title="Rating" />
+      </View>
     </View>
-    <View style={styles.countsContainer}>
-      <CountCombo count={item.stargazersCount} title="Stars" />
-      <CountCombo count={item.forksCount} title="Forks" />
-      <CountCombo count={item.reviewCount} title="Reviews" />
-      <CountCombo count={item.ratingAverage} title="Rating" />
-    </View>
-  </View>
-);
+  );
+};
 
 export default RepositoryItemDetailed;

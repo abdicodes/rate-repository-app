@@ -50,7 +50,7 @@ const AppBar = () => {
   return (
     <View style={styles.container}>
       <ScrollView horizontal={true}>
-        {data.me && <AppBarTab route="/">Repositories</AppBarTab>}
+        {data.me && <AppBarTab route="/repositories">Repositories</AppBarTab>}
         {!data.me && <AppBarTab route="/sign-in">Sign in</AppBarTab>}
         {!data.me && <AppBarTab route="/sign-up">Sign up</AppBarTab>}
         {data.me && <SignOut />}

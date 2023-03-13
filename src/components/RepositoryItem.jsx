@@ -1,6 +1,7 @@
 import { View, Text, StyleSheet, Pressable, Image } from 'react-native';
 import theme from '../theme';
 import kFormatter from '../utils/kFormatter';
+import { useNavigate } from 'react-router-native';
 const styles = StyleSheet.create({
   countsContainer: {
     flexDirection: 'row',
@@ -79,29 +80,35 @@ const InfoCombo = ({ fullName, description, language }) => {
   );
 };
 
-const RepositoryItem = ({ item }) => (
-  <View testID="repositoryItem">
-    <View
-      style={{
-        flexDirection: 'row',
-        padding: 7,
-        margin: 7,
-      }}
-    >
-      <Image source={{ url: item.ownerAvatarUrl }} style={styles.avatar} />
-      <InfoCombo
-        fullName={item.fullName}
-        description={item.description}
-        language={item.language}
-      />
-    </View>
-    <View style={styles.countsContainer}>
-      <CountCombo count={item.stargazersCount} title="Stars" />
-      <CountCombo count={item.forksCount} title="Forks" />
-      <CountCombo count={item.reviewCount} title="Reviews" />
-      <CountCombo count={item.ratingAverage} title="Rating" />
-    </View>
-  </View>
-);
+const RepositoryItem = ({ item }) => {
+  const navigate = useNavigate();
+  return (
+    <Pressable onPress={() => navigate(`/${item.id}`)}>
+      <View testID="repositoryItem">
+        <View
+          style={{
+            flexDirection: 'row',
+            padding: 7,
+            margin: 7,
+          }}
+        >
+          <Image source={{ url: item.ownerAvatarUrl }} style={styles.avatar} />
+          <InfoCombo
+            fullName={item.fullName}
+            description={item.description}
+            language={item.language}
+          />
+        </View>
+
+        <View style={styles.countsContainer}>
+          <CountCombo count={item.stargazersCount} title="Stars" />
+          <CountCombo count={item.forksCount} title="Forks" />
+          <CountCombo count={item.reviewCount} title="Reviews" />
+          <CountCombo count={item.ratingAverage} title="Rating" />
+        </View>
+      </View>
+    </Pressable>
+  );
+};
 
 export default RepositoryItem;

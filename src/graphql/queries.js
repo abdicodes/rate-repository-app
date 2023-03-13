@@ -28,3 +28,21 @@ export const IS_SIGNED_IN = gql`
     }
   }
 `;
+
+export const SINGLE_REPOSITORY = gql`
+  query SingleRepository($repositoryId: ID!) {
+    repository(id: $repositoryId) {
+      id
+      ownerName
+      description
+      language
+      forksCount
+      stargazersCount
+      ratingAverage
+      reviewCount
+      ownerAvatarUrl
+      name
+      url
+    }
+  }
+`;

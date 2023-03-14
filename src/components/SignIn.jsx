@@ -14,7 +14,6 @@ const SignIn = () => {
   const onSubmit = async (values) => {
     try {
       const { data } = await signIn(values);
-      // console.log(data.authenticate.accessToken);
       await dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
       appoloClient.resetStore();
 

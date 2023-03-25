@@ -7,8 +7,6 @@ const httpLink = createHttpLink({
   uri: Constants.manifest.extra.apolloURI,
 });
 
-//this code is borrowed from https://github.com/fullstack-hy2020/fullstack-hy2020.github.io/blob/source/src/content/10/en/part10c.md
-
 const createApolloClient = (authStorage) => {
   const authLink = setContext(async (_, { headers }) => {
     try {

@@ -51,6 +51,25 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.body,
     color: theme.colors.textPrimary,
   },
+  uriText: {
+    fontWeight: theme.fontWeights.bold,
+    fontFamily: theme.fonts.main,
+    fontSize: theme.fontSizes.heading,
+    letterSpacing: 0.25,
+    color: theme.colors.buttonText,
+    paddingHorizontal: 2,
+    alignSelf: 'center',
+  },
+  uriButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 2,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: theme.colors.buttonPrimary,
+    margin: 15,
+  },
 });
 
 const RepositoryInfo = ({ repository }) => {
@@ -60,7 +79,6 @@ const RepositoryInfo = ({ repository }) => {
 const ReviewItem = ({ review }) => {
   const date = new Date(review.node.createdAt);
   const formattedDate = date.toLocaleDateString('en-GB'); // DD.MM.YYYY format
-  console.log(review);
   return (
     <View style={styles.container}>
       <View style={styles.circleContainer}>
@@ -84,11 +102,11 @@ const SingleRepository = () => {
 
   const { data, loading } = useQuery(SINGLE_REPOSITORY, {
     variables: { repositoryId: id },
+    fetchPolicy: 'cache-and-network',
   });
 
   if (loading) return null;
   const repository = data.repository;
-  console.log(repository.reviews);
   const ItemSeparator = () => <View style={styles.separator} />;
 
   return (

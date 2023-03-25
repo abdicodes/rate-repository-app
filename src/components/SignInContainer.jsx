@@ -12,8 +12,6 @@ const SignInContainer = ({ onSubmit }) => {
     username: string()
       .min(5, 'username must contain at least 5 characters')
       .required('Username is required!'),
-
-    // code bowrroed from https://stackblitz.com/edit/react-akapme?file=src%2FApp.js
     password: string()
       .min(5, 'Password must be 5 characters long')
       .matches(/[a-z]/, 'Password requires a lowercase letter')

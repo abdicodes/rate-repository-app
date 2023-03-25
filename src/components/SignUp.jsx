@@ -1,23 +1,18 @@
 import useSignUp from '../hooks/useSignUp';
-import { useAuthStorage } from '../hooks/useAuthStorage';
 import { useNavigate } from 'react-router-native';
 import { useApolloClient } from '@apollo/client';
 import SignUpContainer from './SignUpContainer';
 
 const SignUp = () => {
   const [signUp] = useSignUp();
-  //   const { dispatch } = useAuthStorage();
-  const history = useNavigate();
+  const navigate = useNavigate();
   const appoloClient = useApolloClient();
-  // ...
 
   const onSubmit = async (values) => {
     try {
-      const { data } = await signUp(values);
-      //   await dispatch({ type: 'LOGIN_SUCCESS', payload: data.authenticate });
+      await signUp(values);
       appoloClient.resetStore();
-
-      history('/sign-in');
+      navigate('/sign-in');
     } catch (e) {
       console.log(e);
     }

@@ -1,5 +1,3 @@
-// I borrowed basic Alert dialouge from https://reactnative.dev/docs/alert
-
 import React from 'react';
 import { StyleSheet, Text, Alert, Pressable } from 'react-native';
 import { useNavigate } from 'react-router-native';
@@ -25,7 +23,6 @@ const SignOut = () => {
       [
         {
           text: 'No',
-          // onPress: () => console.log('Cancel Pressed'),
           style: 'cancel',
         },
         { text: 'Yes', onPress: navigateCallBack },

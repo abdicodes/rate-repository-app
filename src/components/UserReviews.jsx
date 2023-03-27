@@ -1,6 +1,3 @@
-import { GET_CURRENT_USER } from '../graphql/queries';
-import { DELEATE_REVIEW } from '../graphql/mutations';
-import { useQuery, useMutation } from '@apollo/client';
 import {
   FlatList,
   View,
@@ -19,6 +16,46 @@ const styles = StyleSheet.create({
   separator: {
     height: 15,
     backgroundColor: theme.colors.separator,
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    flexGrow: 1,
+    width: '100%',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 2,
+    marginHorizontal: 10,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: theme.colors.buttonPrimary,
+    width: 150,
+    height: 40,
+  },
+  deletebutton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 6,
+    paddingHorizontal: 2,
+    marginHorizontal: 10,
+    borderRadius: 4,
+    elevation: 3,
+    backgroundColor: theme.colors.buttonSecondary,
+    width: 150,
+    height: 40,
+  },
+  buttonText: {
+    fontWeight: theme.fontWeights.bold,
+    fontFamily: theme.fonts.main,
+    fontSize: theme.fontSizes.body,
+    letterSpacing: 0.25,
+    color: theme.colors.buttonText,
+    paddingHorizontal: 2,
+    alignSelf: 'center',
   },
 });
 
@@ -55,16 +92,18 @@ const UserReviews = () => {
     return (
       <>
         <ReviewItem review={review} />
-        <Pressable onPress={() => navigate(`/${review.node.repositoryId}`)}>
-          <View>
-            <Text>View repository</Text>
-          </View>
-        </Pressable>
-        <Pressable onPress={createTwoButtonAlert}>
-          <View>
-            <Text>Delete repository</Text>
-          </View>
-        </Pressable>
+        <View style={styles.container}>
+          <Pressable onPress={() => navigate(`/${review.node.repositoryId}`)}>
+            <View style={styles.button}>
+              <Text style={styles.buttonText}>View repository</Text>
+            </View>
+          </Pressable>
+          <Pressable onPress={createTwoButtonAlert}>
+            <View style={styles.deletebutton}>
+              <Text style={styles.buttonText}>Delete review</Text>
+            </View>
+          </Pressable>
+        </View>
       </>
     );
   };

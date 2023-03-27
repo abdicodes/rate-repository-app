@@ -10,7 +10,7 @@ const theme = {
     appBarBackground: '#24292e',
     buttonPrimary: `#1e90ff`,
     buttonDisabled: '#D3D3D3',
-    buttonSecondary: `#ff00ff`,
+    buttonSecondary: `#ff4060`,
     buttonText: `#fffaf0`,
     separator: 'gainsboro',
     error: '#ff4c4c',

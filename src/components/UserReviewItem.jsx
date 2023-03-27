@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     margin: 15,
   },
 });
-const ReviewItem = ({ review }) => {
+const UserReviewItem = ({ review }) => {
   console.log(review);
   const date = new Date(review.node.createdAt);
   const formattedDate = date.toLocaleDateString('en-GB'); // DD.MM.YYYY format
@@ -85,4 +85,4 @@ const ReviewItem = ({ review }) => {
   );
 };
 
-export default ReviewItem;
+export default UserReviewItem;

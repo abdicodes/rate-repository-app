@@ -1,9 +1,18 @@
 import { GET_CURRENT_USER } from '../graphql/queries';
-import { useQuery } from '@apollo/client';
-import { FlatList, View, StyleSheet, Pressable, Text } from 'react-native';
-import ReviewItem from './ReviewItem';
+import { DELEATE_REVIEW } from '../graphql/mutations';
+import { useQuery, useMutation } from '@apollo/client';
+import {
+  FlatList,
+  View,
+  StyleSheet,
+  Pressable,
+  Text,
+  Alert,
+} from 'react-native';
+import ReviewItem from './UserReviewItem';
 import { useNavigate } from 'react-router-native';
-
+import useDeleteReview from '../hooks/useDeleteReview';
+import useCurrentUser from '../hooks/useCurrentUser';
 import theme from '../theme';
 
 const styles = StyleSheet.create({
@@ -16,14 +25,33 @@ const styles = StyleSheet.create({
 const ItemSeparator = () => <View style={styles.separator} />;
 
 const UserReviews = () => {
-  const { data, loading } = useQuery(GET_CURRENT_USER, {
-    //to avoid caching issues.
-    fetchPolicy: 'cache-and-network',
-    variables: { includeReviews: true },
-  });
+  const { data, loading, refetch } = useCurrentUser(true);
+  console.log(data);
+  const [deleteReview] = useDeleteReview();
 
+  const deleteReviewHandler = async (id) => {
+    try {
+      const { data } = await deleteReview(id);
+      console.log(data);
+      refetch();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const Review = ({ review }) => {
     const navigate = useNavigate();
+    const createTwoButtonAlert = () =>
+      Alert.alert(
+        'Delete review',
+        'Are you sure you want to delete this review',
+        [
+          {
+            text: 'No',
+            style: 'cancel',
+          },
+          { text: 'Yes', onPress: () => deleteReviewHandler(review.node.id) },
+        ]
+      );
     return (
       <>
         <ReviewItem review={review} />
@@ -32,7 +60,7 @@ const UserReviews = () => {
             <Text>View repository</Text>
           </View>
         </Pressable>
-        <Pressable onPress={() => console.log('delete')}>
+        <Pressable onPress={createTwoButtonAlert}>
           <View>
             <Text>Delete repository</Text>
           </View>

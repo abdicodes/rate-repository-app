@@ -4,7 +4,7 @@ import { useParams } from 'react-router-native';
 import { useQuery } from '@apollo/client';
 import { SINGLE_REPOSITORY } from '../graphql/queries';
 import theme from '../theme';
-import ReviewItem from './ReviewItem';
+import RepoReviewItem from './RepoReviewItem';
 
 const styles = StyleSheet.create({
   separator: {
@@ -32,7 +32,7 @@ const SingleRepository = () => {
   return (
     <FlatList
       data={repository.reviews.edges}
-      renderItem={({ item }) => <ReviewItem review={item} />}
+      renderItem={({ item }) => <RepoReviewItem review={item} />}
       keyExtractor={({ node }) => node.id}
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}

@@ -8,7 +8,13 @@ import {
 import theme from '../theme';
 import RepositoryItem from './RepositoryItem';
 import { Picker } from '@react-native-picker/picker';
+<<<<<<< HEAD
 import { useState } from 'react';
+=======
+import { useState, useMemo } from 'react';
+import { SearchBarMomoized } from './SearchBar';
+import { useDebouncedCallback } from 'use-debounce';
+>>>>>>> acbff7c (refactor)
 
 const styles = StyleSheet.create({
   separator: {
@@ -61,22 +67,54 @@ const styles = StyleSheet.create({
 
 const ItemSeparator = () => <View style={styles.separator} />;
 
+<<<<<<< HEAD
 export const RepositoryListContainer = ({ repositories, onSubmit }) => {
+=======
+export const RepositoryListContainer = ({
+  repositories,
+  sortRepositories,
+  searchRepositories,
+  value,
+}) => {
+>>>>>>> acbff7c (refactor)
   const renderItem = ({ item }) => <RepositoryItem item={item} />;
 
   const repositoryNodes = repositories.edges.map((edge) => edge.node);
   const valueChangeHandler = (itemValue) => {
+<<<<<<< HEAD
     onSubmit(itemValue);
   };
 
   const SortingProps = () => {
     const [showPicker, setShowPicker] = useState(false);
 
+=======
+    sortRepositories(itemValue);
+  };
+
+  const renderHeader = () => {
+    const [showPicker, setShowPicker] = useState(false);
+
+    const [searchQuery] = useState('');
+
+    const debounced = useDebouncedCallback(
+      // function
+      (value) => {
+        searchRepositories(value);
+      },
+      // delay in ms
+      1000
+    );
+
+    const memoizedOnChangeText = useMemo(() => debounced, [debounced]);
+
+>>>>>>> acbff7c (refactor)
     const handlePickerButtonPress = () => {
       setShowPicker(!showPicker);
     };
 
     return (
+<<<<<<< HEAD
       <View style={styles.container}>
         <TouchableOpacity
           style={styles.button}
@@ -94,6 +132,35 @@ export const RepositoryListContainer = ({ repositories, onSubmit }) => {
           </Picker>
         )}
       </View>
+=======
+      <>
+        <SearchBarMomoized
+          initialValue={value}
+          onChangeText={memoizedOnChangeText}
+          value={searchQuery}
+        />
+        <View style={styles.container}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={handlePickerButtonPress}
+          >
+            <Text style={styles.buttonText}>Sort by</Text>
+            <View style={styles.arrowIcon} />
+          </TouchableOpacity>
+
+          {showPicker && (
+            <Picker style={styles.picker} onValueChange={valueChangeHandler}>
+              <Picker.Item label="latest repositories" value="latest" />
+              <Picker.Item
+                label="Highest rated repositories"
+                value="highRate"
+              />
+              <Picker.Item label="Lowest rated repositories" value="lowRate" />
+            </Picker>
+          )}
+        </View>
+      </>
+>>>>>>> acbff7c (refactor)
     );
   };
   return (
@@ -102,7 +169,11 @@ export const RepositoryListContainer = ({ repositories, onSubmit }) => {
       renderItem={renderItem}
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={ItemSeparator}
+<<<<<<< HEAD
       ListHeaderComponent={SortingProps}
+=======
+      ListHeaderComponent={renderHeader}
+>>>>>>> acbff7c (refactor)
     />
   );
 };

@@ -2,6 +2,7 @@ import { GET_CURRENT_USER } from '../graphql/queries';
 import { useQuery } from '@apollo/client';
 import { FlatList, View, StyleSheet, Pressable, Text } from 'react-native';
 import ReviewItem from './ReviewItem';
+import { useNavigate } from 'react-router-native';
 
 import theme from '../theme';
 
@@ -22,10 +23,11 @@ const UserReviews = () => {
   });
 
   const Review = ({ review }) => {
+    const navigate = useNavigate();
     return (
       <>
         <ReviewItem review={review} />
-        <Pressable onPress={() => console.log('view')}>
+        <Pressable onPress={() => navigate(`/${review.node.repositoryId}`)}>
           <View>
             <Text>View repository</Text>
           </View>

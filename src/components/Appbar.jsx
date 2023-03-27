@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import theme from '../theme';
 import SignOut from './SignOut';
 import { useQuery } from '@apollo/client';
-import { IS_SIGNED_IN } from '../graphql/queries';
+import { GET_CURRENT_USER } from '../graphql/queries';
 
 const styles = StyleSheet.create({
   container: {
@@ -41,10 +41,11 @@ const AppBarTab = ({ children, route }) => {
 };
 
 const AppBar = () => {
-  const { data, loading } = useQuery(IS_SIGNED_IN, {
+  const { data, loading } = useQuery(GET_CURRENT_USER, {
     //to avoid caching issues.
     fetchPolicy: 'cache-and-network',
   });
+  console.log(data);
   if (loading) return null;
 
   return (

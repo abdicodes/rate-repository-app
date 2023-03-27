@@ -45,7 +45,6 @@ const AppBar = () => {
     //to avoid caching issues.
     fetchPolicy: 'cache-and-network',
   });
-  console.log(data);
   if (loading) return null;
 
   return (
@@ -53,6 +52,7 @@ const AppBar = () => {
       <ScrollView horizontal={true}>
         {data.me && <AppBarTab route="/repositories">Repositories</AppBarTab>}
         {data.me && <AppBarTab route="/create-review">Create review</AppBarTab>}
+        {data.me && <AppBarTab route="/user-reviews">Reviews</AppBarTab>}
         {!data.me && <AppBarTab route="/sign-in">Sign in</AppBarTab>}
         {!data.me && <AppBarTab route="/sign-up">Sign up</AppBarTab>}
         {data.me && <SignOut />}

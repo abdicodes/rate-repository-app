@@ -36,18 +36,12 @@
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-native": "0.69.6",
-<<<<<<< HEAD
-    "react-native-web": "~0.18.7",
-    "react-router-dom": "^6.9.0",
-    "react-router-native": "^6.8.2",
-=======
     "react-native-paper": "^5.5.1",
     "react-native-safe-area-context": "^4.5.0",
     "react-native-web": "~0.18.7",
     "react-router-dom": "^6.9.0",
     "react-router-native": "^6.8.2",
     "use-debounce": "^9.0.3",
->>>>>>> acbff7c (refactor)
     "yup": "^1.0.2"
   },
   "devDependencies": {

@@ -9,7 +9,6 @@ const SignUpContainer = ({ onSubmit }) => {
     password: '',
     confirm: '',
   };
-  // code bowrroed from https://stackblitz.com/edit/react-akapme?file=src%2FApp.js
   const loginSchema = object().shape({
     username: string()
       .min(5, 'username must contain at least 5 characters')

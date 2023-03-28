@@ -63,13 +63,11 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const UserReviews = () => {
   const { data, loading, refetch } = useCurrentUser(true);
-  console.log(data);
   const [deleteReview] = useDeleteReview();
 
   const deleteReviewHandler = async (id) => {
     try {
-      const { data } = await deleteReview(id);
-      console.log(data);
+      await deleteReview(id);
       refetch();
     } catch (e) {
       console.log(e);

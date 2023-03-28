@@ -64,7 +64,6 @@ const styles = StyleSheet.create({
   },
 });
 const RepoReviewItem = ({ review }) => {
-  console.log(review);
   const date = new Date(review.node.createdAt);
   const formattedDate = date.toLocaleDateString('en-GB'); // DD.MM.YYYY format
   return (

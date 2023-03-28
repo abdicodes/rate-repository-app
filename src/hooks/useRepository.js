@@ -15,11 +15,6 @@ const useRepository = (variables) => {
       return;
     }
 
-    const test = {
-      after: data.repository.reviews.pageInfo.endCursor,
-      ...variables,
-    };
-    console.log(test);
     fetchMore({
       variables: {
         after: data.repository.reviews.pageInfo.endCursor,

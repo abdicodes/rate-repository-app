@@ -22,7 +22,6 @@ const useRepositories = (variables) => {
         ...variables,
       },
     });
-    console.log(variables);
   };
 
   return {

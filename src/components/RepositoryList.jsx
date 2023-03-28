@@ -1,24 +1,22 @@
-import { useQuery } from '@apollo/client';
-import { GET_REPOSITORIES } from '../graphql/queries';
 import RepositoryListContainer from './RepositoryListContainer';
 import { useState } from 'react';
+import useRepositories from '../hooks/useRepositories';
 
 const RepositoryList = () => {
   const [selectedOrderType, setSelectedOrderType] = useState('CREATED_AT');
   const [selectDirection, setSelectDirection] = useState('DESC');
   const [searchKeyword, setSearchKeyword] = useState('');
-
-  const { data, loading } = useQuery(GET_REPOSITORIES, {
-    //to avoid caching issues.
-    fetchPolicy: 'cache-and-network',
-    variables: {
-      orderBy: selectedOrderType,
-      orderDirection: selectDirection,
-      searchKeyword: searchKeyword,
-    },
+  const { repositories, fetchMore, loading } = useRepositories({
+    first: 6,
+    orderBy: selectedOrderType,
+    orderDirection: selectDirection,
+    searchKeyword: searchKeyword,
   });
+
+  const onEndReach = () => {
+    fetchMore();
+  };
   if (loading) return null;
-  const { repositories } = data;
 
   const sortRepositories = (itemValue) => {
     if (itemValue === 'latest') {
@@ -37,7 +35,6 @@ const RepositoryList = () => {
   };
 
   const searchRepositories = (keyword) => {
-    console.log(keyword);
     setSearchKeyword(keyword);
   };
 
@@ -48,6 +45,7 @@ const RepositoryList = () => {
         sortRepositories={sortRepositories}
         searchRepositories={searchRepositories}
         value={searchKeyword}
+        onEndReach={onEndReach}
       />
     )
   );

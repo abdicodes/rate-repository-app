@@ -68,6 +68,7 @@ export const RepositoryListContainer = ({
   sortRepositories,
   searchRepositories,
   value,
+  onEndReach,
 }) => {
   const renderItem = ({ item }) => <RepositoryItem item={item} />;
 
@@ -133,6 +134,8 @@ export const RepositoryListContainer = ({
       keyExtractor={(item) => item.id}
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={renderHeader}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.1}
     />
   );
 };

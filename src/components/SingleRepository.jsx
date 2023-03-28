@@ -1,10 +1,9 @@
 import { FlatList, View, StyleSheet } from 'react-native';
 import RepositoryItem from './RepositoryItem';
 import { useParams } from 'react-router-native';
-import { useQuery } from '@apollo/client';
-import { SINGLE_REPOSITORY } from '../graphql/queries';
 import theme from '../theme';
 import RepoReviewItem from './RepoReviewItem';
+import useRepository from '../hooks/useRepository';
 
 const styles = StyleSheet.create({
   separator: {
@@ -19,16 +18,17 @@ const RepositoryInfo = ({ repository }) => {
 
 const SingleRepository = () => {
   const { id } = useParams();
-
-  const { data, loading } = useQuery(SINGLE_REPOSITORY, {
-    variables: { repositoryId: id },
-    fetchPolicy: 'cache-and-network',
+  const { repository, fetchMore, loading } = useRepository({
+    first: 4,
+    repositoryId: id,
   });
 
+  const onEndReach = () => {
+    fetchMore();
+  };
   if (loading) return null;
-  const repository = data.repository;
-  const ItemSeparator = () => <View style={styles.separator} />;
 
+  const ItemSeparator = () => <View style={styles.separator} />;
   return (
     <FlatList
       data={repository.reviews.edges}
@@ -36,6 +36,8 @@ const SingleRepository = () => {
       keyExtractor={({ node }) => node.id}
       ItemSeparatorComponent={ItemSeparator}
       ListHeaderComponent={() => <RepositoryInfo repository={repository} />}
+      onEndReached={onEndReach}
+      onEndReachedThreshold={0.1}
       // ...
     />
   );

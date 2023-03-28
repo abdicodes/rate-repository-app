@@ -59,7 +59,7 @@ export const GET_CURRENT_USER = gql`
 `;
 
 export const SINGLE_REPOSITORY = gql`
-  query SingleRepository($repositoryId: ID!) {
+  query Repository($repositoryId: ID!, $first: Int, $after: String) {
     repository(id: $repositoryId) {
       id
       fullName
@@ -71,7 +71,7 @@ export const SINGLE_REPOSITORY = gql`
       reviewCount
       ownerAvatarUrl
       url
-      reviews {
+      reviews(first: $first, after: $after) {
         edges {
           node {
             createdAt
@@ -83,6 +83,12 @@ export const SINGLE_REPOSITORY = gql`
               username
             }
           }
+          cursor
+        }
+        pageInfo {
+          hasNextPage
+          startCursor
+          endCursor
         }
       }
     }
